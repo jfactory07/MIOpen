@@ -4559,6 +4559,14 @@ struct ConvHipImplicitGemm3DGroupFwdXdlops final
     /// \ref igemm_get_wti_magic_number
     float GetWti(const ExecutionContext&, const miopen::conv::ProblemDescription&) const override
     {
+        #if 1
+        if (ctx.GetStream().GetDeviceName() == "gfx1100" ||
+            ctx.GetStream().GetDeviceName() == "gfx1201")
+        {
+            return 1.0f;
+        }
+        #endif
+        
         return 0.02f;
     };
 
